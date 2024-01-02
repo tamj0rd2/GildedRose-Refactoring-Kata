@@ -3,12 +3,10 @@ obj
 *.sln.DotSettings.user
 .vs
 vendor
-.idea
 *.iml
 **/*.received.*
 venv
 
-.idea/
 out/
 *.class
 
