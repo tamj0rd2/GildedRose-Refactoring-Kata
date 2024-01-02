@@ -1,5 +1,6 @@
 package com.gildedrose
 
+// DO NOT CHANGE THE ITEMS PROPERTY
 class GildedRose(var items: List<Item>) {
 
     fun updateQuality() {
@@ -53,6 +54,5 @@ class GildedRose(var items: List<Item>) {
             }
         }
     }
-
 }
 
