@@ -15,6 +15,7 @@ repositories {
 dependencies {
 	implementation(kotlin("stdlib"))
 	testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+	testImplementation("io.strikt:strikt-core:0.34.0")
 }
 
 tasks.test {
