@@ -16,10 +16,8 @@ class GildedRose(var items: List<Item>) {
 
         sellIn -= 1
 
-        if (sellIn < 0) {
-            if (quality < 50) {
-                quality += 1
-            }
+        if (sellIn < 0 && quality < 50) {
+            quality += 1
         }
     }
 
@@ -28,16 +26,12 @@ class GildedRose(var items: List<Item>) {
             quality += 1
         }
 
-        if (sellIn < 11) {
-            if (quality < 50) {
-                quality += 1
-            }
+        if (sellIn < 11 && quality < 50) {
+            quality += 1
         }
 
-        if (sellIn < 6) {
-            if (quality < 50) {
-                quality += 1
-            }
+        if (sellIn < 6 && quality < 50) {
+            quality += 1
         }
 
         sellIn -= 1
