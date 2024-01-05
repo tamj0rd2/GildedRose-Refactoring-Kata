@@ -5,6 +5,8 @@ class GildedRose(var items: List<Item>) {
 
     fun updateQuality() {
         for (item in items) {
+            if (item.name == "Sulfuras, Hand of Ragnaros") continue
+
             item.update()
         }
     }
@@ -28,8 +30,6 @@ class GildedRose(var items: List<Item>) {
     private fun Item.updateAgedBrie() {
         val increment = if (hasAlreadyReachedSellByDate) 2 else 1
         adjustQualityBy(increment)
-
-        sellIn -= 1
     }
 
     private fun Item.updateBackstagePass() {
@@ -41,21 +41,20 @@ class GildedRose(var items: List<Item>) {
 
         if (hasAlreadyReachedSellByDate) quality = 0
         else adjustQualityBy(increment)
-
-        sellIn -= 1
     }
 
     private fun Item.update() {
+        if (name == "Sulfuras, Hand of Ragnaros") return
+
         when (name) {
             "Aged Brie" -> updateAgedBrie()
             "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePass()
-            "Sulfuras, Hand of Ragnaros" -> {}
             else -> {
                 adjustQualityBy(-1)
                 if (hasAlreadyReachedSellByDate) adjustQualityBy(-1)
-
-                sellIn -= 1
             }
         }
+
+        sellIn -= 1
     }
 }
