@@ -12,10 +12,12 @@ class GildedRose(var items: List<Item>) {
         }
     }
 
+    private val Item.isPastSellByDate get() = sellIn < 0
+
     private fun Item.updateAgedBrie() {
         sellIn -= 1
 
-        val increment = if (sellIn < 0) 2 else 1
+        val increment = if (isPastSellByDate) 2 else 1
         quality = min(quality + increment, 50)
     }
 
@@ -28,7 +30,7 @@ class GildedRose(var items: List<Item>) {
 
         sellIn -= 1
 
-        if (sellIn < 0) quality = 0
+        if (isPastSellByDate) quality = 0
     }
 
     private fun Item.update() {
@@ -41,7 +43,7 @@ class GildedRose(var items: List<Item>) {
 
                 sellIn -= 1
 
-                if (sellIn < 0 && quality > 0) quality -= 1
+                if (isPastSellByDate && quality > 0) quality -= 1
             }
         }
     }
