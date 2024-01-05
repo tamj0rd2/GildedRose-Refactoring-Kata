@@ -1,5 +1,6 @@
 package com.gildedrose
 
+import kotlin.math.max
 import kotlin.math.min
 
 // DO NOT CHANGE THE ITEMS PROPERTY
@@ -18,7 +19,13 @@ class GildedRose(var items: List<Item>) {
     private val Item.isPastSellByDate get() = sellIn < 0
 
     private fun Item.adjustQualityBy(amount: Int) {
-        quality = min(quality + amount, MAXIMUM_QUALITY)
+        val projectedQuality = quality + amount
+
+        quality = when {
+            projectedQuality > MAXIMUM_QUALITY -> MAXIMUM_QUALITY
+            projectedQuality < 0 -> 0
+            else -> projectedQuality
+        }
     }
 
     private fun Item.updateAgedBrie() {
@@ -47,11 +54,11 @@ class GildedRose(var items: List<Item>) {
             "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePass()
             "Sulfuras, Hand of Ragnaros" -> {}
             else -> {
-                if (quality > 0) adjustQualityBy(-1)
+                adjustQualityBy(-1)
 
                 sellIn -= 1
 
-                if (isPastSellByDate && quality > 0) adjustQualityBy(-1)
+                if (isPastSellByDate) adjustQualityBy(-1)
             }
         }
     }
