@@ -29,15 +29,16 @@ class GildedRose(var items: List<Item>) {
     }
 
     private fun Item.updateBackstagePass() {
-        if (quality < MAXIMUM_QUALITY) adjustQualityBy(1)
-
-        if (sellIn < 11 && quality < MAXIMUM_QUALITY) adjustQualityBy(1)
-
-        if (sellIn < 6 && quality < MAXIMUM_QUALITY) adjustQualityBy(1)
+        val increment = when {
+            sellIn <= 5 -> 3
+            sellIn <= 10 -> 2
+            else -> 1
+        }
 
         sellIn -= 1
 
         if (isPastSellByDate) quality = 0
+        else adjustQualityBy(increment)
     }
 
     private fun Item.update() {
