@@ -54,9 +54,7 @@ class GildedRose(var items: List<Item>) {
                     }
                 }
 
-                "Backstage passes to a TAFKAL80ETC concert" -> {
-                    quality -= quality
-                }
+                "Backstage passes to a TAFKAL80ETC concert" -> quality = 0
 
                 else -> if (quality > 0) quality -= 1
             }
