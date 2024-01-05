@@ -10,35 +10,23 @@ class GildedRose(var items: List<Item>) {
     }
 
     private fun Item.updateAgedBrie() {
-        if (quality < 50) {
-            quality += 1
-        }
+        if (quality < 50) quality += 1
 
         sellIn -= 1
 
-        if (sellIn < 0 && quality < 50) {
-            quality += 1
-        }
+        if (sellIn < 0 && quality < 50) quality += 1
     }
 
     private fun Item.updateBackstagePass() {
-        if (quality < 50) {
-            quality += 1
-        }
+        if (quality < 50) quality += 1
 
-        if (sellIn < 11 && quality < 50) {
-            quality += 1
-        }
+        if (sellIn < 11 && quality < 50) quality += 1
 
-        if (sellIn < 6 && quality < 50) {
-            quality += 1
-        }
+        if (sellIn < 6 && quality < 50) quality += 1
 
         sellIn -= 1
 
-        if (sellIn < 0) {
-            quality = 0
-        }
+        if (sellIn < 0) quality = 0
     }
 
     private fun Item.update() {
@@ -48,7 +36,9 @@ class GildedRose(var items: List<Item>) {
             "Sulfuras, Hand of Ragnaros" -> {}
             else -> {
                 if (quality > 0) quality -= 1
+
                 sellIn -= 1
+
                 if (sellIn < 0 && quality > 0) quality -= 1
             }
         }
