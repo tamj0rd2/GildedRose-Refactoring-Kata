@@ -29,7 +29,7 @@ class GildedRose(var items: List<Item>) {
     }
 
     private fun Item.updateBackstagePass() {
-        if (quality < 50) adjustQualityBy(1)
+        if (quality < MAXIMUM_QUALITY) adjustQualityBy(1)
 
         if (sellIn < 11 && quality < MAXIMUM_QUALITY) adjustQualityBy(1)
 
