@@ -30,12 +30,10 @@ class ApprovalTest {
         val longestNameLength = items.maxOf { it.name.length }
 
         val result = buildList {
-            for (i in 0..days) {
-                add("=========== Day $i ==============")
+            for (day in 0..days) {
+                add("=========== Day $day ==============")
                 add("${"Name".padEnd(longestNameLength)} | Sell in | Quality")
-                for (item in items) {
-                    add("${item.name.padEnd(longestNameLength)} | ${item.sellIn.toString().padStart(7)} | ${item.quality.toString().padStart(7)}")
-                }
+                addAll(items.map { it.asTableRow(longestNameLength) })
                 add("")
                 app.updateQuality()
             }
@@ -51,3 +49,8 @@ class ApprovalTest {
         val approvals: ApprovalsExtension = ApprovalsExtension(File("src/test/resources"))
     }
 }
+
+private fun Item.asTableRow(namePadding: Int): String =
+    "${name.padEnd(namePadding)} | ${sellIn.asNumberCell()} | ${quality.asNumberCell()}"
+
+private fun Int.asNumberCell(): String = toString().padStart(7)
