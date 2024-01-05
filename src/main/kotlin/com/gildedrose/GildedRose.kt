@@ -18,9 +18,10 @@ class GildedRose(var items: List<Item>) {
     private val Item.hasAlreadyReachedSellByDate get() = sellIn <= 0
 
     private fun Item.updateQuality() {
-        when (name) {
-            "Aged Brie" -> updateAgedBrieQuality()
-            "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePassQuality()
+        when {
+            name == "Aged Brie" -> updateAgedBrieQuality()
+            name == "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePassQuality()
+            name.startsWith("Conjured") -> updateConjuredItemQuality()
             else -> updateStandardItemQuality()
         }
     }
@@ -56,6 +57,11 @@ class GildedRose(var items: List<Item>) {
 
     private fun Item.updateStandardItemQuality() {
         val amount = if (hasAlreadyReachedSellByDate) -2 else -1
+        adjustQualityBy(amount)
+    }
+
+    private fun Item.updateConjuredItemQuality() {
+        val amount = if (hasAlreadyReachedSellByDate) -4 else -2
         adjustQualityBy(amount)
     }
 }
