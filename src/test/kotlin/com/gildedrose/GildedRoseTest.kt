@@ -9,10 +9,9 @@ internal class GildedRoseTest {
 
     @Test
     fun `aged brie`() {
-        val agedBrie = Item(name = "Aged Brie", sellIn = 2, quality = 0)
+        val item = Item(name = "Aged Brie", sellIn = 2, quality = 0)
 
-        val items = listOf(agedBrie)
-        val app = GildedRose(items)
+        val app = GildedRose(listOf(item))
 
         app.updateQuality()
         expectThat(app.items[0]).isEqualTo(1, 1)
@@ -22,6 +21,22 @@ internal class GildedRoseTest {
 
         app.updateQuality()
         expectThat(app.items[0]).isEqualTo(-1, 4)
+    }
+
+    @Test
+    fun `backstage passes`() {
+        val item = Item(name = "Backstage passes to a TAFKAL80ETC concert", sellIn = 2, quality = 10)
+
+        val app = GildedRose(listOf(item))
+
+        app.updateQuality()
+        expectThat(app.items[0]).isEqualTo(1, 13)
+
+        app.updateQuality()
+        expectThat(app.items[0]).isEqualTo(0, 16)
+
+        app.updateQuality()
+        expectThat(app.items[0]).isEqualTo(-1, 0)
     }
 }
 

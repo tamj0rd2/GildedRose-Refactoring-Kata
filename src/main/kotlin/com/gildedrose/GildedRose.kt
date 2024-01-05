@@ -13,8 +13,7 @@ class GildedRose(var items: List<Item>) {
         const val MAXIMUM_QUALITY = 50
     }
 
-    private val Item.hasReachedSellByDate get() = sellIn <= 0
-    private val Item.isPastSellByDate get() = sellIn < 0
+    private val Item.hasAlreadyReachedSellByDate get() = sellIn <= 0
 
     private fun Item.adjustQualityBy(amount: Int) {
         val projectedQuality = quality + amount
@@ -27,7 +26,7 @@ class GildedRose(var items: List<Item>) {
     }
 
     private fun Item.updateAgedBrie() {
-        val increment = if (hasReachedSellByDate) 2 else 1
+        val increment = if (hasAlreadyReachedSellByDate) 2 else 1
         adjustQualityBy(increment)
 
         sellIn -= 1
@@ -40,10 +39,10 @@ class GildedRose(var items: List<Item>) {
             else -> 1
         }
 
-        sellIn -= 1
-
-        if (isPastSellByDate) quality = 0
+        if (hasAlreadyReachedSellByDate) quality = 0
         else adjustQualityBy(increment)
+
+        sellIn -= 1
     }
 
     private fun Item.update() {
@@ -53,10 +52,9 @@ class GildedRose(var items: List<Item>) {
             "Sulfuras, Hand of Ragnaros" -> {}
             else -> {
                 adjustQualityBy(-1)
+                if (hasAlreadyReachedSellByDate) adjustQualityBy(-1)
 
                 sellIn -= 1
-
-                if (isPastSellByDate) adjustQualityBy(-1)
             }
         }
     }
