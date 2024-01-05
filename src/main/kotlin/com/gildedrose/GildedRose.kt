@@ -45,8 +45,6 @@ class GildedRose(var items: List<Item>) {
     }
 
     private fun Item.updateQuality() {
-        if (name == "Sulfuras, Hand of Ragnaros") return
-
         when (name) {
             "Aged Brie" -> updateAgedBrie()
             "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePass()
