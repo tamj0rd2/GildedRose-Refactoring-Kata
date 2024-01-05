@@ -28,12 +28,12 @@ class GildedRose(var items: List<Item>) {
         }
     }
 
-    private fun Item.updateAgedBrie() {
+    private fun Item.updateAgedBrieQuality() {
         val increment = if (hasAlreadyReachedSellByDate) 2 else 1
         adjustQualityBy(increment)
     }
 
-    private fun Item.updateBackstagePass() {
+    private fun Item.updateBackstagePassQuality() {
         val increment = when {
             sellIn <= 5 -> 3
             sellIn <= 10 -> 2
@@ -46,8 +46,8 @@ class GildedRose(var items: List<Item>) {
 
     private fun Item.updateQuality() {
         when (name) {
-            "Aged Brie" -> updateAgedBrie()
-            "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePass()
+            "Aged Brie" -> updateAgedBrieQuality()
+            "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePassQuality()
             else -> {
                 adjustQualityBy(-1)
                 if (hasAlreadyReachedSellByDate) adjustQualityBy(-1)
