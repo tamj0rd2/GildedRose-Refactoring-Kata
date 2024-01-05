@@ -2,6 +2,9 @@ package com.gildedrose
 
 // DO NOT CHANGE THE ITEMS PROPERTY
 class GildedRose(var items: List<Item>) {
+    companion object {
+        const val MAXIMUM_QUALITY = 50
+    }
 
     fun updateQuality() {
         for (item in items) {
@@ -12,11 +15,15 @@ class GildedRose(var items: List<Item>) {
         }
     }
 
-    companion object {
-        const val MAXIMUM_QUALITY = 50
-    }
-
     private val Item.hasAlreadyReachedSellByDate get() = sellIn <= 0
+
+    private fun Item.updateQuality() {
+        when (name) {
+            "Aged Brie" -> updateAgedBrieQuality()
+            "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePassQuality()
+            else -> updateStandardItemQuality()
+        }
+    }
 
     private fun Item.adjustQualityBy(amount: Int) {
         val projectedQuality = quality + amount
@@ -50,13 +57,5 @@ class GildedRose(var items: List<Item>) {
     private fun Item.updateStandardItemQuality() {
         val amount = if (hasAlreadyReachedSellByDate) -2 else -1
         adjustQualityBy(amount)
-    }
-
-    private fun Item.updateQuality() {
-        when (name) {
-            "Aged Brie" -> updateAgedBrieQuality()
-            "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePassQuality()
-            else -> updateStandardItemQuality()
-        }
     }
 }
