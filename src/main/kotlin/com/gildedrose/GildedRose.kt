@@ -13,6 +13,14 @@ class GildedRose(var items: List<Item>) {
         if (quality < 50) {
             quality += 1
         }
+
+        sellIn -= 1
+
+        if (sellIn < 0) {
+            if (quality < 50) {
+                quality += 1
+            }
+        }
     }
 
     private fun Item.updateBackstagePass() {
@@ -31,33 +39,23 @@ class GildedRose(var items: List<Item>) {
                 quality += 1
             }
         }
-    }
-
-    private fun Item.update() {
-        if (name == "Sulfuras, Hand of Ragnaros") return
-
-        when (name) {
-            "Aged Brie" -> updateAgedBrie()
-            "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePass()
-            else -> {
-                if (quality > 0) quality -= 1
-                sellIn -= 1
-                if (sellIn < 0 && quality > 0) quality -= 1
-                return
-            }
-        }
 
         sellIn -= 1
 
         if (sellIn < 0) {
-            when (name) {
-                "Aged Brie" -> {
-                    if (quality < 50) {
-                        quality += 1
-                    }
-                }
+            quality = 0
+        }
+    }
 
-                "Backstage passes to a TAFKAL80ETC concert" -> quality = 0
+    private fun Item.update() {
+        when (name) {
+            "Aged Brie" -> updateAgedBrie()
+            "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePass()
+            "Sulfuras, Hand of Ragnaros" -> {}
+            else -> {
+                if (quality > 0) quality -= 1
+                sellIn -= 1
+                if (sellIn < 0 && quality > 0) quality -= 1
             }
         }
     }
