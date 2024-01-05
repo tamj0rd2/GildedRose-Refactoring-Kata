@@ -7,7 +7,8 @@ class GildedRose(var items: List<Item>) {
         for (item in items) {
             if (item.name == "Sulfuras, Hand of Ragnaros") continue
 
-            item.update()
+            item.updateQuality()
+            item.sellIn -= 1
         }
     }
 
@@ -43,7 +44,7 @@ class GildedRose(var items: List<Item>) {
         else adjustQualityBy(increment)
     }
 
-    private fun Item.update() {
+    private fun Item.updateQuality() {
         if (name == "Sulfuras, Hand of Ragnaros") return
 
         when (name) {
@@ -54,7 +55,5 @@ class GildedRose(var items: List<Item>) {
                 if (hasAlreadyReachedSellByDate) adjustQualityBy(-1)
             }
         }
-
-        sellIn -= 1
     }
 }
