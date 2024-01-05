@@ -25,15 +25,16 @@ class ApprovalTest {
         )
 
         val app = GildedRose(items)
-
         val days = 30
+
+        val longestNameLength = items.maxOf { it.name.length }
 
         val result = buildList {
             for (i in 0..days) {
-                add("-------- day $i --------")
-                add("name, sellIn, quality")
+                add("=========== Day $i ==============")
+                add("${"Name".padEnd(longestNameLength)} | Sell in | Quality")
                 for (item in items) {
-                    add(item.toString())
+                    add("${item.name.padEnd(longestNameLength)} | ${item.sellIn.toString().padStart(7)} | ${item.quality.toString().padStart(7)}")
                 }
                 add("")
                 app.updateQuality()
