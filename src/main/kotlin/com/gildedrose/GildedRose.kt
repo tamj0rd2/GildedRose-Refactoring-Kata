@@ -41,6 +41,9 @@ class GildedRose(var items: List<Item>) {
             "Backstage passes to a TAFKAL80ETC concert" -> updateBackstagePass()
             else -> {
                 if (quality > 0) quality -= 1
+                sellIn -= 1
+                if (sellIn < 0 && quality > 0) quality -= 1
+                return
             }
         }
 
@@ -55,8 +58,6 @@ class GildedRose(var items: List<Item>) {
                 }
 
                 "Backstage passes to a TAFKAL80ETC concert" -> quality = 0
-
-                else -> if (quality > 0) quality -= 1
             }
         }
     }
